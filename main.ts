@@ -10,6 +10,8 @@ import {
 import { Producer } from "./components/producer.js";
 import { Space } from "./components/space.js";
 import { TOTAL_SIZE } from "./draw.js";
+import { Duplicator } from "./components/duplicator.js";
+import { Bin } from "./components/bin.js";
 
 type ComponentConstructor = new (
     x: number,
@@ -24,6 +26,8 @@ const componentRegister: { [name: string]: ComponentConstructor } = {
     Subtractor: Subtractor,
     Divider: Divider,
     Producer: Producer,
+    Duplicator: Duplicator,
+    Bin: Bin,
     Remove: Space,
 };
 
