@@ -47,7 +47,7 @@ class Game {
 
     private ui: UI;
     /** The constructor of the specific component that will be placed on click */
-    private activeComponent: ComponentConstructor = Conveyor;
+    private activeComponentConstructor: ComponentConstructor = Conveyor;
     /** The starting ponit of a mouse drag when it has been initiated */
     private dragStart = { x: 0, y: 0 };
 
@@ -110,7 +110,7 @@ class Game {
         for (let toolName in componentRegister) {
             let b = new Button(10 + 210 * i, 10, 200, 50, toolName);
             b.setOnClick((_x: number, _y: number) => {
-                this.activeComponent = componentRegister[toolName];
+                this.activeComponentConstructor = componentRegister[toolName];
             });
 
             this.ui.addElement(b);
@@ -154,7 +154,11 @@ class Game {
                 let b = Math.max(grid_x_start, grid_x_end);
                 for (let x = a; x <= b; x++) {
                     this.addComponent(
-                        new this.activeComponent(x, grid_y_start, xDirection),
+                        new this.activeComponentConstructor(
+                            x,
+                            grid_y_start,
+                            xDirection,
+                        ),
                     );
                 }
             } else {
@@ -162,7 +166,11 @@ class Game {
                 let b = Math.max(grid_y_start, grid_y_end);
                 for (let y = a; y <= b; y++) {
                     this.addComponent(
-                        new this.activeComponent(grid_x_start, y, yDirection),
+                        new this.activeComponentConstructor(
+                            grid_x_start,
+                            y,
+                            yDirection,
+                        ),
                     );
                 }
             }
