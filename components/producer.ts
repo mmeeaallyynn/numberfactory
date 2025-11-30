@@ -3,10 +3,10 @@ import { Component } from "./component.js";
 export class Producer extends Component {
     private cooldown: number = 0;
     render(ctx: CanvasRenderingContext2D): void {
-        this.render_default(ctx, "#0F0F", `${this.content}`);
+        this.renderDefault(ctx, "#0F0F", `${this.content}`);
     }
 
-    tick_state(): void {
+    tickState(): void {
         if (this.cooldown > 0) {
             this.cooldown--;
             return;
@@ -16,5 +16,5 @@ export class Producer extends Component {
             this.cooldown = 3;
         }
     }
-    interact(_: Component[]): void {}
+    interact(_: Map<string, Component>): void {}
 }
