@@ -95,7 +95,7 @@ class Game {
         this.ui.addElement(restore);
 
         // An invisible overlay, that will receive the user input events
-        let overlay = new Overlay(0, 0, 1000, 1000);
+        let overlay = new Overlay(0, 0, 10000, 10000);
         overlay.setOnMouseDown((x: number, y: number) => {
             this.dragStart = { x: x, y: y };
         });
@@ -153,7 +153,8 @@ class Game {
 
     /** Add a new component to the grid.
      *
-     * If the target position of the component is already occupied, the component will be overridden.
+     * If the space is already occupied and the Space component is selected, the component will be removed.
+     * If any other component is selected, call is used to update the component direction.
      */
     addComponent(component: Component) {
         let current = this.grid[component.x][component.y];
