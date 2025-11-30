@@ -2,11 +2,22 @@ import { Component } from "./component.js";
 
 /** Duplicate the input number */
 export class Duplicator extends Component {
-    private outputs: (number | null)[] = [];
+    private outputs: number[] = [];
     private waitingRoom: number | null = null;
 
     render(ctx: CanvasRenderingContext2D): void {
-        this.renderDefault(ctx, "#0FA", "");
+        let contentString: string;
+        if (this.outputs.length > 0) {
+            let roundedValue = Math.round(this.outputs[0] * 100) / 100;
+            contentString = `${roundedValue}`;
+
+            if (roundedValue == 0 && this.outputs[0] != 0) {
+                contentString += "...";
+            }
+        } else {
+            contentString = "";
+        }
+        this.renderDefault(ctx, "#0FA", contentString);
     }
 
     tickState(): void {

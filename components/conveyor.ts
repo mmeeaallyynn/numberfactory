@@ -4,11 +4,18 @@ import { Component } from "./component.js";
 export class Conveyor extends Component {
     private waitingRoom: number | null = null;
     render(ctx: CanvasRenderingContext2D): void {
-        this.renderDefault(
-            ctx,
-            "#F00F",
-            `${this.content == null ? "" : this.content}`,
-        );
+        let contentString: string;
+        if (this.content != null) {
+            let roundedValue = Math.round(this.content * 100) / 100;
+            contentString = `${roundedValue}`;
+
+            if (roundedValue == 0 && this.content != 0) {
+                contentString += "...";
+            }
+        } else {
+            contentString = "";
+        }
+        this.renderDefault(ctx, "#F00F", contentString);
     }
 
     tickState(): void {
