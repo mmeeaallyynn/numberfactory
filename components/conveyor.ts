@@ -2,7 +2,7 @@ import { Component } from "./component.js";
 
 /** Take in some input and move it into the content section after one tick. */
 export class Conveyor extends Component {
-    private waiting_room: number | null = null;
+    private waitingRoom: number | null = null;
     render(ctx: CanvasRenderingContext2D): void {
         this.renderDefault(
             ctx,
@@ -12,9 +12,9 @@ export class Conveyor extends Component {
     }
 
     tickState(): void {
-        if (this.waiting_room != null) {
-            this.content = this.waiting_room;
-            this.waiting_room = null;
+        if (this.waitingRoom != null) {
+            this.content = this.waitingRoom;
+            this.waitingRoom = null;
         }
     }
 
@@ -26,7 +26,7 @@ export class Conveyor extends Component {
         for (let [_, component] of components) {
             let value = component.take();
             if (value != null) {
-                this.waiting_room = value;
+                this.waitingRoom = value;
                 break;
             }
         }
