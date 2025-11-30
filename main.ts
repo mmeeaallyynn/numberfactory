@@ -66,41 +66,6 @@ class Game {
                 column.push(new Space(i, j, "n"));
             }
         }
-
-        // initial default map for debugging
-        // this.addComponent(new Producer(2, 5, "n"));
-        // this.addComponent(new Conveyor(2, 6, "n"));
-        // this.addComponent(new Conveyor(2, 7, "n"));
-
-        // this.addComponent(new Producer(4, 5, "n"));
-        // this.addComponent(new Conveyor(4, 6, "n"));
-        // this.addComponent(new Conveyor(4, 7, "n"));
-
-        // this.addComponent(new Adder(3, 7, "n"));
-        // this.addComponent(new Conveyor(3, 8, "n"));
-        // this.addComponent(new Conveyor(3, 9, "n"));
-
-        // this.addComponent(new Conveyor(2, 7, ["n"]));
-        // this.addComponent(new Adder(2, 8, ["n", "e", "w"]));
-        // //this.addComponent(new Multiplier(2, 9, ["n", "e", "w"]));
-        // this.addComponent(new Conveyor(2, 10, ["n"]));
-        // this.addComponent(new Conveyor(2, 11, ["n"]));
-        // this.addComponent(new Conveyor(2, 12, ["n"]));
-
-        // this.addComponent(new Conveyor(1, 12, ["w"]));
-        // this.addComponent(new Conveyor(0, 12, ["w"]));
-        // this.addComponent(new Conveyor(0, 11, ["s"]));
-        // this.addComponent(new Conveyor(0, 10, ["s"]));
-        // this.addComponent(new Conveyor(0, 9, ["s"]));
-        // this.addComponent(new Conveyor(1, 9, ["e"]));
-
-        // this.addComponent(new Producer(5, 5, []));
-        // this.addComponent(new Conveyor(5, 6, ["n"]));
-        // this.addComponent(new Conveyor(5, 7, ["n"]));
-        // this.addComponent(new Conveyor(5, 8, ["n"]));
-        // this.addComponent(new Conveyor(5, 9, ["n"]));
-        // this.addComponent(new Conveyor(4, 9, ["w"]));
-        //this.addComponent(new Conveyor(3, 9, ["w"]));
     }
 
     /** Setup all ui elements and the functionality for the user to interact */
