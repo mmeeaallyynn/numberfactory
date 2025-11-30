@@ -167,6 +167,7 @@ export class UIElement {
 export class Button extends UIElement {
     private text: string;
     private hovered: boolean = false;
+    private highlighted: boolean = false;
 
     constructor(
         x: number,
@@ -184,7 +185,9 @@ export class Button extends UIElement {
 
     render(ctx: CanvasRenderingContext2D): void {
         ctx.beginPath();
-        if (this.hovered) {
+        if (this.highlighted) {
+            ctx.fillStyle = "#DFD";
+        } else if (this.hovered) {
             ctx.fillStyle = "#DDD";
         } else {
             ctx.fillStyle = "#999";
@@ -207,6 +210,11 @@ export class Button extends UIElement {
             this.x + this.width / 2,
             this.y + this.height / 2,
         );
+    }
+
+    /** Render this button in a highlighted color if enabled */
+    setHighlight(enabled: boolean) {
+        this.highlighted = enabled;
     }
 }
 

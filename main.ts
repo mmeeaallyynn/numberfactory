@@ -50,6 +50,8 @@ class Game {
     private activeComponentConstructor: ComponentConstructor = Conveyor;
     /** The starting ponit of a mouse drag when it has been initiated */
     private dragStart: { x: number; y: number } | null = null;
+    /** The active Component selector buttons */
+    private buttons: Map<string, Button> = new Map();
 
     constructor(width: number, height: number, ui: UI) {
         this.width = width;
@@ -127,8 +129,10 @@ class Game {
         let i = 0;
         for (let toolName in componentRegister) {
             let b = new Button(10 + 210 * i, 10, 200, 50, toolName);
+            this.buttons.set(toolName, b);
+
             b.setOnClick((_x: number, _y: number) => {
-                this.activeComponentConstructor = componentRegister[toolName];
+                this.setActiveComponent(toolName);
             });
 
             this.ui.addElement(b);
@@ -146,6 +150,15 @@ class Game {
             this.restoreState();
         });
         this.ui.addElement(restore);
+    }
+
+    /** Set the currently active Component that will be placed and update the button highlights */
+    setActiveComponent(toolName: string) {
+        for (let [_, button] of this.buttons) {
+            button.setHighlight(false);
+        }
+        this.buttons.get(toolName)?.setHighlight(true);
+        this.activeComponentConstructor = componentRegister[toolName];
     }
 
     /** Return the component at the given grid position, or a Space when the position is outside of the grid. */
