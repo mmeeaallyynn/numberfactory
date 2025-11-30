@@ -86,7 +86,7 @@ class Game {
             // determine the cardinal directions of the drag
             let xDiff = x - this.dragStart.x;
             let yDiff = y - this.dragStart.y;
-            let xDirection = xDiff > 0 ? "e" : "w";
+            let xDirection = xDiff > 0 ? "w" : "e";
             let yDirection = yDiff > 0 ? "n" : "s";
 
             // find the position on the map grid for the start and end point
@@ -217,9 +217,9 @@ class Game {
         for (let c of this.components) {
             c.receiveInputs(
                 this.getComponent(c.x, c.y - 1),
-                this.getComponent(c.x - 1, c.y),
-                this.getComponent(c.x, c.y + 1),
                 this.getComponent(c.x + 1, c.y),
+                this.getComponent(c.x, c.y + 1),
+                this.getComponent(c.x - 1, c.y),
             );
         }
     }
