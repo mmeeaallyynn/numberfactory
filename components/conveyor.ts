@@ -1,5 +1,6 @@
 import { Component } from "./component.js";
 
+/** Take in some input and move it into the content section after one tick. */
 export class Conveyor extends Component {
     private waiting_room: number | null = null;
     render(ctx: CanvasRenderingContext2D): void {

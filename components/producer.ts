@@ -1,5 +1,6 @@
 import { Component } from "./component.js";
 
+/** Produce a `1` every third tick. */
 export class Producer extends Component {
     private cooldown: number = 0;
     render(ctx: CanvasRenderingContext2D): void {

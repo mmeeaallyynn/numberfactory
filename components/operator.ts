@@ -1,11 +1,17 @@
 import { Component } from "./component.js";
 
+/** Abstract Binary Operator */
 abstract class Operator extends Component {
+    /** Holds inputs for each input direction or null if empty. */
     private slots: Map<string, number | null>;
+    /** The name of the operator */
     protected abstract name: string;
+    /** A function that executes the binary operation */
     protected abstract fn: Function;
+
     constructor(x: number, y: number, direction: string) {
         super(x, y, direction);
+        // Use inputs for left and right of the direction
         switch (direction[0]) {
             case "n":
                 this.inputDirections = new Set(["e", "w"]);
@@ -22,6 +28,8 @@ abstract class Operator extends Component {
         }
         this.slots = new Map();
 
+        // TODO: Input direction may be modified, but the slots are not changed in that case.
+        // Initialize the slots for each input directions with zero
         for (let direction of this.inputDirections) {
             this.slots.set(direction, null);
         }
@@ -30,6 +38,7 @@ abstract class Operator extends Component {
     render(ctx: CanvasRenderingContext2D): void {
         this.renderDefault(ctx, "#F0FF", this.name);
     }
+
     tickState(): void {
         let values: (number | null)[] = [];
         for (let direction of this.inputDirections) {
@@ -48,6 +57,7 @@ abstract class Operator extends Component {
             this.slots.set(direction, null);
         }
     }
+
     interact(components: Map<string, Component>): void {
         if (this.content != null) {
             return;
@@ -75,6 +85,7 @@ export class Subtractor extends Operator {
     name = "-";
     fn = (a: number, b: number) => a - b;
 }
+
 export class Multiplier extends Operator {
     name = "×";
     fn = (a: number, b: number) => a * b;

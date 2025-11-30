@@ -20,6 +20,7 @@ export abstract class Component {
         this.inputDirections = new Set([direction]);
     }
 
+    /** Enable or disable input directions */
     setInputDirection(direction: string, enabled: boolean) {
         if (enabled) {
             this.inputDirections.add(direction);
@@ -101,10 +102,12 @@ export abstract class Component {
         );
     }
 
+    /** Getter for the component direction. */
     getDirection(): string {
         return this.direction;
     }
 
+    /** Getter for the component's input directions. */
     getInputDirections(): Set<string> {
         return this.inputDirections;
     }
