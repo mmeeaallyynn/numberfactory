@@ -9,4 +9,5 @@ export class Producer extends Component {
 
     tickState(): void {}
     interact(_: Map<string, Component>): void {}
+    renderConnections(ctx: CanvasRenderingContext2D): void {}
 }

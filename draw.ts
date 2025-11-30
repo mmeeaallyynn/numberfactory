@@ -8,33 +8,50 @@ export function drawArrow(
     y: number,
     size: number,
     direction: string,
+    color: string,
 ) {
-    let p1: [number, number];
-    let p2: [number, number] = [x + size / 2, y + size / 2];
-    let p3: [number, number];
+    // arrow points
+    let arrow1: [number, number];
+    let arrow3: [number, number];
+
+    // connector points
+    let connector1: [number, number];
+
+    let center: [number, number] = [x + size / 2, y + size / 2];
+
+    // connector line points
     switch (direction) {
         case "n":
-            p1 = [x, y];
-            p3 = [x + size, y];
+            arrow1 = [x, y];
+            arrow3 = [x + size, y];
+            connector1 = [x + size / 2, y - size / 2];
             break;
         case "e":
-            p1 = [x, y];
-            p3 = [x, y + size];
+            arrow1 = [x + size, y];
+            arrow3 = [x + size, y + size];
+            connector1 = [x + size + size / 2, y + size / 2];
             break;
         case "s":
-            p1 = [x, y + size];
-            p3 = [x + size, y + size];
+            arrow1 = [x, y + size];
+            arrow3 = [x + size, y + size];
+            connector1 = [x + size / 2, y + size + size / 2];
             break;
         default: // "w"
-            p1 = [x + size, y];
-            p3 = [x + size, y + size];
+            arrow1 = [x, y];
+            arrow3 = [x, y + size];
+            connector1 = [x - size / 2, y + size / 2];
             break;
     }
-    ctx.fillStyle = "#FFFA";
+    ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(...p1);
-    ctx.lineTo(...p2);
-    ctx.lineTo(...p3);
+    ctx.moveTo(...arrow1);
+    ctx.lineTo(...center);
+    ctx.lineTo(...arrow3);
     ctx.fill();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(...center);
+    ctx.lineTo(...connector1);
     ctx.stroke();
 }

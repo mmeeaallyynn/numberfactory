@@ -195,6 +195,10 @@ class Game {
     render(ctx: CanvasRenderingContext2D) {
         for (let component of this.componentsToRender) {
             component.render(ctx);
+            // this.componentsToRender.delete(component);
+        }
+        for (let component of this.componentsToRender) {
+            component.renderConnections(ctx);
             this.componentsToRender.delete(component);
         }
         this.ui.render(ctx);

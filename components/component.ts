@@ -73,6 +73,34 @@ export abstract class Component {
         );
         ctx.fill();
 
+        // Draw the text on top of the square
+        ctx.font = "30px arial";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.strokeStyle = "#FFF";
+        ctx.fillStyle = "#FFF";
+        let measurement = ctx.measureText(text);
+
+        ctx.fillRect(
+            TOTAL_SIZE * this.x + SQUARE_SIZE / 2 - measurement.width / 2,
+            TOTAL_SIZE * this.y + SQUARE_SIZE / 2 - 30 / 2,
+            measurement.width,
+            30,
+        );
+        ctx.strokeText(
+            text,
+            TOTAL_SIZE * this.x + SQUARE_SIZE / 2,
+            TOTAL_SIZE * this.y + SQUARE_SIZE / 2,
+        );
+        ctx.fillStyle = "#000";
+        ctx.fillText(
+            text,
+            TOTAL_SIZE * this.x + SQUARE_SIZE / 2,
+            TOTAL_SIZE * this.y + SQUARE_SIZE / 2,
+        );
+    }
+
+    renderConnections(ctx: CanvasRenderingContext2D) {
         // Overlay triangles, indicating the input directions
         for (let direction of this.inputDirections) {
             drawArrow(
@@ -81,25 +109,9 @@ export abstract class Component {
                 this.y * TOTAL_SIZE,
                 TOTAL_SIZE,
                 direction,
+                "#FFFA",
             );
         }
-
-        // Draw the text on top of the square
-        ctx.font = "30px arial";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "center";
-        ctx.strokeStyle = "#FFF";
-        ctx.fillStyle = "#000";
-        ctx.strokeText(
-            text,
-            TOTAL_SIZE * this.x + SQUARE_SIZE / 2,
-            TOTAL_SIZE * this.y + SQUARE_SIZE / 2,
-        );
-        ctx.fillText(
-            text,
-            TOTAL_SIZE * this.x + SQUARE_SIZE / 2,
-            TOTAL_SIZE * this.y + SQUARE_SIZE / 2,
-        );
     }
 
     /** Getter for the component direction. */
