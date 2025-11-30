@@ -308,7 +308,7 @@ export function init() {
     setInterval(() => {
         game.stepInputs();
         game.tickStates();
-    }, 0.01);
+    }, 200);
 
     setInterval(() => {
         game.render(ctx);

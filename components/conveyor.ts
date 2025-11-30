@@ -22,8 +22,9 @@ export class Conveyor extends Component {
         if (this.content != null) {
             return;
         }
-        for (let d in components) {
-            let value = components.get(d)?.take();
+
+        for (let [_, component] of components) {
+            let value = component.take();
             if (value != null) {
                 this.waiting_room = value;
                 break;

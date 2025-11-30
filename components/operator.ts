@@ -63,11 +63,11 @@ abstract class Operator extends Component {
             return;
         }
 
-        for (let direction in components) {
+        for (let [direction, component] of components) {
             if (this.slots.get(direction) != null) {
                 continue;
             }
-            let value = components.get(direction)?.take();
+            let value = component.take();
             if (value == null) {
                 continue;
             }
