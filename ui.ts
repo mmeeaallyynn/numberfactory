@@ -8,25 +8,33 @@ export class UI {
     }
 
     onMouseDown(event: MouseEvent) {
-        for (let element of this.uiElements) {
-            element.mouseDownEvent(event.x, event.y);
+        for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
+            let element = this.uiElements[idx];
+            if (element.mouseDownEvent(event.x, event.y)) {
+                break;
+            }
         }
     }
 
     onMouseUp(event: MouseEvent) {
-        for (let element of this.uiElements) {
+        for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
+            let element = this.uiElements[idx];
             element.mouseUpEvent(event.x, event.y);
         }
     }
 
     onClick(event: MouseEvent) {
-        for (let element of this.uiElements) {
-            element.clickEvent(event.x, event.y);
+        for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
+            let element = this.uiElements[idx];
+            if (element.clickEvent(event.x, event.y)) {
+                break;
+            }
         }
     }
 
     onHover(event: MouseEvent) {
-        for (let element of this.uiElements) {
+        for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
+            let element = this.uiElements[idx];
             element.moveEvent(event.x, event.y);
         }
     }
@@ -86,24 +94,26 @@ export class UIElement {
         );
     }
 
-    clickEvent(x: number, y: number) {
+    clickEvent(x: number, y: number): boolean {
         if (this.outOfBounds(x, y)) {
-            return;
+            return false;
         }
 
         this.onclick(x, y);
+        return true;
     }
 
     moveEvent(x: number, y: number) {
         this.onmove(x, y);
     }
 
-    mouseDownEvent(x: number, y: number) {
+    mouseDownEvent(x: number, y: number): boolean {
         if (this.outOfBounds(x, y)) {
-            return;
+            return false;
         }
 
         this.onmousedown(x, y);
+        return true;
     }
 
     mouseUpEvent(x: number, y: number) {

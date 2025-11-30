@@ -49,7 +49,7 @@ class Game {
     /** The constructor of the specific component that will be placed on click */
     private activeComponentConstructor: ComponentConstructor = Conveyor;
     /** The starting ponit of a mouse drag when it has been initiated */
-    private dragStart = { x: 0, y: 0 };
+    private dragStart: { x: number; y: number } | null = null;
 
     constructor(width: number, height: number, ui: UI) {
         this.width = width;
@@ -70,30 +70,6 @@ class Game {
 
     /** Setup all ui elements and the functionality for the user to interact */
     setupUI() {
-        // Add a button for each possible tool
-        let i = 0;
-        for (let toolName in componentRegister) {
-            let b = new Button(10 + 210 * i, 10, 200, 50, toolName);
-            b.setOnClick((_x: number, _y: number) => {
-                this.activeComponentConstructor = componentRegister[toolName];
-            });
-
-            this.ui.addElement(b);
-            i++;
-        }
-
-        let save = new Button(10, 70, 200, 50, "Save");
-        save.setOnClick((_x: number, _y: number) => {
-            this.saveState();
-        });
-        this.ui.addElement(save);
-
-        let restore = new Button(220, 70, 200, 50, "Restore");
-        restore.setOnClick((_x: number, _y: number) => {
-            this.restoreState();
-        });
-        this.ui.addElement(restore);
-
         // An invisible overlay, that will receive the user input events
         let overlay = new Overlay(0, 0, 10000, 10000);
         overlay.setOnMouseDown((x: number, y: number) => {
@@ -101,6 +77,10 @@ class Game {
         });
 
         overlay.setOnMouseUp((x: number, y: number) => {
+            if (this.dragStart == null) {
+                return;
+            }
+
             // determine the cardinal directions of the drag
             let xDiff = x - this.dragStart.x;
             let yDiff = y - this.dragStart.y;
@@ -139,8 +119,33 @@ class Game {
                     );
                 }
             }
+            this.dragStart = null;
         });
         this.ui.addElement(overlay);
+
+        // Add a button for each possible tool
+        let i = 0;
+        for (let toolName in componentRegister) {
+            let b = new Button(10 + 210 * i, 10, 200, 50, toolName);
+            b.setOnClick((_x: number, _y: number) => {
+                this.activeComponentConstructor = componentRegister[toolName];
+            });
+
+            this.ui.addElement(b);
+            i++;
+        }
+
+        let save = new Button(10, 70, 200, 50, "Save");
+        save.setOnClick((_x: number, _y: number) => {
+            this.saveState();
+        });
+        this.ui.addElement(save);
+
+        let restore = new Button(220, 70, 200, 50, "Restore");
+        restore.setOnClick((_x: number, _y: number) => {
+            this.restoreState();
+        });
+        this.ui.addElement(restore);
     }
 
     /** Return the component at the given grid position, or a Space when the position is outside of the grid. */
