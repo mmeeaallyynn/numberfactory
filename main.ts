@@ -20,15 +20,15 @@ type ComponentConstructor = new (
 ) => Component;
 
 const componentRegister: { [name: string]: ComponentConstructor } = {
+    Remove: Space,
     Conveyor: Conveyor,
+    Producer: Producer,
+    Duplicator: Duplicator,
+    Bin: Bin,
     Adder: Adder,
     Multiplier: Multiplier,
     Subtractor: Subtractor,
     Divider: Divider,
-    Producer: Producer,
-    Duplicator: Duplicator,
-    Bin: Bin,
-    Remove: Space,
 };
 
 /** Holds the game state and the UI */
@@ -150,6 +150,22 @@ class Game {
             this.restoreState();
         });
         this.ui.addElement(restore);
+
+        this.ui.setOnKeyDown((key: string) => {
+            let targetIdx = Number.parseInt(key) - 1;
+            if (Number.isNaN(targetIdx)) {
+                return;
+            }
+
+            let idx = 0;
+            for (let toolName in componentRegister) {
+                if (idx == targetIdx) {
+                    this.setActiveComponent(toolName);
+                    break;
+                }
+                idx++;
+            }
+        });
     }
 
     /** Set the currently active Component that will be placed and update the button highlights */
@@ -285,8 +301,6 @@ class Game {
 
             this.addComponent(component);
         }
-
-        console.log(savedComponents);
     }
 }
 

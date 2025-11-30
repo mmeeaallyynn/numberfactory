@@ -2,6 +2,7 @@
 export class UI {
     private parent: HTMLElement;
     private uiElements: UIElement[] = new Array();
+    private onkeydown: Function = (key: string) => {};
 
     constructor(parent: HTMLElement) {
         this.parent = parent;
@@ -65,6 +66,16 @@ export class UI {
         this.parent.addEventListener("mouseup", (event) => {
             this.onMouseUp(event);
         });
+
+        // The keydown listener is global, since it can't be attached to a canvas element
+        document.addEventListener("keydown", (event) => {
+            this.onkeydown(event.key);
+        });
+    }
+
+    /** Set the function that will be executed on key press */
+    setOnKeyDown(onkeydown: (key: string) => void) {
+        this.onkeydown = onkeydown;
     }
 
     render(ctx: CanvasRenderingContext2D) {
