@@ -14,13 +14,13 @@ abstract class Operator extends Component {
         // Use inputs for left and right of the direction
         switch (direction[0]) {
             case "n":
-                this.inputDirections = new Set(["e", "w"]);
+                this.inputDirections = new Set(["w", "e"]);
                 break;
             case "s":
                 this.inputDirections = new Set(["e", "w"]);
                 break;
             case "e":
-                this.inputDirections = new Set(["n", "s"]);
+                this.inputDirections = new Set(["s", "n"]);
                 break;
             default: // "w"
                 this.inputDirections = new Set(["n", "s"]);
