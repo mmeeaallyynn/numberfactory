@@ -1,3 +1,4 @@
+/** Holds UI elements */
 export class UI {
     private parent: HTMLElement;
     private uiElements: UIElement[] = new Array();
@@ -7,6 +8,9 @@ export class UI {
         this.setupEvents();
     }
 
+    /** Process mousedown events
+     * If the click is in bounds of multiple elements, only the last receives the event
+     */
     onMouseDown(event: MouseEvent) {
         for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
             let element = this.uiElements[idx];
@@ -16,6 +20,9 @@ export class UI {
         }
     }
 
+    /** Process mouseup events
+     * All elements within bounds receive the event
+     */
     onMouseUp(event: MouseEvent) {
         for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
             let element = this.uiElements[idx];
@@ -23,6 +30,9 @@ export class UI {
         }
     }
 
+    /** Process click events
+     * If the click is in bounds of multiple elements, only the last receives the event
+     */
     onClick(event: MouseEvent) {
         for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
             let element = this.uiElements[idx];
@@ -32,6 +42,9 @@ export class UI {
         }
     }
 
+    /** Process hover events
+     * All elements within bounds receive the event
+     */
     onHover(event: MouseEvent) {
         for (let idx = this.uiElements.length - 1; idx >= 0; idx--) {
             let element = this.uiElements[idx];
@@ -65,6 +78,7 @@ export class UI {
     }
 }
 
+/** A UI element with a given position and size that can be interacted with */
 export class UIElement {
     protected x: number;
     protected y: number;
@@ -85,6 +99,7 @@ export class UIElement {
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 
+    /** Return true if the coordinates are out of bounds of this element */
     protected outOfBounds(x: number, y: number): boolean {
         return (
             x <= this.x ||
@@ -94,6 +109,9 @@ export class UIElement {
         );
     }
 
+    /** Call the onclick handler if the coordinates are within bounds
+     * Return true if it was a hit
+     */
     clickEvent(x: number, y: number): boolean {
         if (this.outOfBounds(x, y)) {
             return false;
@@ -103,10 +121,14 @@ export class UIElement {
         return true;
     }
 
+    /** Call the onmove event handler */
     moveEvent(x: number, y: number) {
         this.onmove(x, y);
     }
 
+    /** Call the onmousedown handler if the coordinates are within bounds
+     * Return true if it was a hit
+     */
     mouseDownEvent(x: number, y: number): boolean {
         if (this.outOfBounds(x, y)) {
             return false;
@@ -116,6 +138,7 @@ export class UIElement {
         return true;
     }
 
+    /** Call the onmouseup handler if the coordinates are within bounds */
     mouseUpEvent(x: number, y: number) {
         if (this.outOfBounds(x, y)) {
             return;
@@ -124,19 +147,23 @@ export class UIElement {
         this.onmouseup(x, y);
     }
 
+    /** Set the onclick event handler */
     setOnClick(onclick: Function) {
         this.onclick = onclick;
     }
 
+    /** Set the onmousedown event handler */
     setOnMouseDown(onmousedown: Function) {
         this.onmousedown = onmousedown;
     }
 
+    /** Set the onmouseup event handler */
     setOnMouseUp(onmouseup: Function) {
         this.onmouseup = onmouseup;
     }
 }
 
+/** A Button UI Element */
 export class Button extends UIElement {
     private text: string;
     private hovered: boolean = false;
@@ -183,6 +210,7 @@ export class Button extends UIElement {
     }
 }
 
+/** A transparent UI Element */
 export class Overlay extends UIElement {
     render(ctx: CanvasRenderingContext2D): void {}
 }
